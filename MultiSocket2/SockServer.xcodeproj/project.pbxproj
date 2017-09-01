@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		920CD0581F558E0000EAA1D2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0531F558E0000EAA1D2 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		920CD0591F558E0000EAA1D2 /* NSMutableDictionary+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0551F558E0000EAA1D2 /* NSMutableDictionary+Json.m */; };
+		920CD05A1F558E0000EAA1D2 /* NSObject+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0571F558E0000EAA1D2 /* NSObject+Json.m */; };
 		92F388AB1F4FB96200936443 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F388AA1F4FB96200936443 /* AppDelegate.m */; };
 		92F388AE1F4FB96200936443 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F388AD1F4FB96200936443 /* main.m */; };
 		92F388B11F4FB96200936443 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F388B01F4FB96200936443 /* ViewController.m */; };
@@ -17,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		920CD0521F558E0000EAA1D2 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		920CD0531F558E0000EAA1D2 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		920CD0541F558E0000EAA1D2 /* NSMutableDictionary+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+Json.h"; sourceTree = "<group>"; };
+		920CD0551F558E0000EAA1D2 /* NSMutableDictionary+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+Json.m"; sourceTree = "<group>"; };
+		920CD0561F558E0000EAA1D2 /* NSObject+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Json.h"; sourceTree = "<group>"; };
+		920CD0571F558E0000EAA1D2 /* NSObject+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Json.m"; sourceTree = "<group>"; };
 		92F388A61F4FB96200936443 /* SockServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SockServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F388A91F4FB96200936443 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92F388AA1F4FB96200936443 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +71,12 @@
 		92F388A81F4FB96200936443 /* SockServer */ = {
 			isa = PBXGroup;
 			children = (
+				920CD0521F558E0000EAA1D2 /* JSONKit.h */,
+				920CD0531F558E0000EAA1D2 /* JSONKit.m */,
+				920CD0541F558E0000EAA1D2 /* NSMutableDictionary+Json.h */,
+				920CD0551F558E0000EAA1D2 /* NSMutableDictionary+Json.m */,
+				920CD0561F558E0000EAA1D2 /* NSObject+Json.h */,
+				920CD0571F558E0000EAA1D2 /* NSObject+Json.m */,
 				92F388A91F4FB96200936443 /* AppDelegate.h */,
 				92F388AA1F4FB96200936443 /* AppDelegate.m */,
 				92F388AF1F4FB96200936443 /* ViewController.h */,
@@ -159,9 +174,12 @@
 			files = (
 				92F388B11F4FB96200936443 /* ViewController.m in Sources */,
 				92F388C21F4FBB7600936443 /* IPTool.m in Sources */,
+				920CD0581F558E0000EAA1D2 /* JSONKit.m in Sources */,
 				92F388BF1F4FBB4700936443 /* IPPort.m in Sources */,
 				92F388AE1F4FB96200936443 /* main.m in Sources */,
+				920CD0591F558E0000EAA1D2 /* NSMutableDictionary+Json.m in Sources */,
 				92F388AB1F4FB96200936443 /* AppDelegate.m in Sources */,
+				920CD05A1F558E0000EAA1D2 /* NSObject+Json.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +331,7 @@
 				92F388BC1F4FB96200936443 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

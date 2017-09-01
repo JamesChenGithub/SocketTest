@@ -750,8 +750,8 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dm9-E9-DMk">
-                                <rect key="frame" x="443" y="13" width="67" height="32"/>
-                                <buttonCell key="cell" type="push" title="发送" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Ph-B7-ZTm">
+                                <rect key="frame" x="415" y="13" width="95" height="32"/>
+                                <buttonCell key="cell" type="push" title="发送C2C" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1Ph-B7-ZTm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
@@ -760,16 +760,16 @@
                                 </connections>
                             </button>
                             <scrollView wantsLayer="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-VL-2FU">
-                                <rect key="frame" x="20" y="20" width="409" height="164"/>
+                                <rect key="frame" x="20" y="20" width="381" height="164"/>
                                 <clipView key="contentView" id="89O-Au-Jwj">
-                                    <rect key="frame" x="1" y="1" width="407" height="162"/>
+                                    <rect key="frame" x="1" y="1" width="379" height="162"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="F7k-U8-ZEO">
-                                            <rect key="frame" x="0.0" y="-1" width="407" height="162"/>
+                                            <rect key="frame" x="0.0" y="-1" width="379" height="162"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="407" height="162"/>
+                                            <size key="minSize" width="379" height="162"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -781,7 +781,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="aDd-pI-h1V">
-                                    <rect key="frame" x="392" y="1" width="16" height="162"/>
+                                    <rect key="frame" x="364" y="1" width="16" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

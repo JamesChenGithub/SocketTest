@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "IPTool.h"
+#import "IPPort.h"
 
 #import <sys/socket.h>
 #import <netinet/in.h>
@@ -18,7 +19,9 @@
 
 
 // 0: server 1:client
-#define kClientType 1
+#define kClientType 0
+
+#define kMaxCacheSize 2049
 
 @implementation ViewController
 
@@ -47,8 +50,7 @@
     _port.enabled = NO;
     
     
-    _host.ipAddr = ip;
-    _host.port = port;
+    _host.ipAddrPort = [NSString stringWithFormat:@"%@:%d",ip, por];
     _host.nick = _nick.stringValue;
     
     _textView.editable = NO;
@@ -64,7 +66,7 @@
         [_startButton setTitle:@"连接"];
     }
     
-    _sendButton.enabled = NO;
+//    _sendButton.enabled = NO;
     
     _acceptSocketIDs = [NSMutableArray array];
     // Do any additional setup after loading the view.
@@ -196,7 +198,7 @@
                 
                 while (_running)
                 {
-                    char buf[2049];
+                    char buf[kMaxCacheSize];
                     memset(&buf, 0, sizeof(buf));
                     ssize_t size =  recv(socketid, &buf, sizeof(buf) - 1, 0);
                     
@@ -272,7 +274,7 @@
     }
     
     
-    int liserr = listen(socketid, 10);
+    int liserr = listen(socketid, 2);
     if (liserr != 0)
     {
         NSString *error = [NSString stringWithFormat:@"socket listen failed : %d", err];
@@ -321,7 +323,7 @@
                 BOOL exit = NO;
                 do
                 {
-                    char buf[2049];
+                    char buf[kMaxCacheSize];
                     memset(&buf, 0, sizeof(buf));
                     
                     ssize_t size = recv(peerfd, buf, sizeof(buf) - 1, 0);
@@ -335,8 +337,26 @@
                     {
                         NSString *recvStr = [NSString stringWithUTF8String:buf];
                         NSLog(@"%@", recvStr);
-                        [self appendTextMsg:[NSString stringWithFormat:@"recv client(%@:%d)  : %@", cipstr, client_port, recvStr]];
+                        
+                        NSString *log = [NSString stringWithFormat:@"recv client(%@:%d)  : %@", cipstr, client_port, recvStr];
+                        [self appendTextMsg:log];
                         exit = [recvStr containsString:@"exit"];
+                        
+                        
+                        @synchronized (_acceptSocketIDs)
+                        {
+                            if (_acceptSocketIDs.count == 2)
+                            {
+                                for (NSNumber *socid in _acceptSocketIDs)
+                                {
+                                    if (socid.intValue != peerfd)
+                                    {
+                                        [self dispatchToDest:socid.intValue message:log];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                     
                 } while(!exit);
@@ -351,15 +371,31 @@
     }
 }
 
+
+- (void)dispatchToDest:(int)tosock message:(NSString *)msg
+{
+    NSString *text = [NSString stringWithFormat:@"server Dispatch msg : %@", msg];
+    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    ssize_t len = send(tosock, data.bytes, data.length, 0);
+    if (len > 0)
+    {
+        [self appendTextMsg:[NSString stringWithFormat:@"server Disptach succ  : %@", text]];
+    }
+    else
+    {
+        [self appendTextMsg:[NSString stringWithFormat:@"server Disptach fail  : %@", text]];
+    }
+}
+
 - (IBAction)onSendMsg:(NSButton *)sender
 {
     NSString *text = _sendMsg.string;
+    NSData *data = [self sendDataOf:text];
     if (text.length)
     {
-        
         if (kClientType)
         {
-            ssize_t len = send(_socketId, [text UTF8String], strlen([text UTF8String]), 0);
+            ssize_t len = send(_socketId, data.bytes, data.length, 0);
             if (len > 0)
             {
                 [self appendTextMsg:[NSString stringWithFormat:@"client send succ  : %@", text]];
@@ -374,7 +410,7 @@
             
             for (NSNumber *socid in _acceptSocketIDs)
             {
-                ssize_t len = send([socid intValue], [text UTF8String], strlen([text UTF8String]), 0);
+                ssize_t len = send([socid intValue], data.bytes, data.length, 0);
                 if (len > 0)
                 {
                     [self appendTextMsg:[NSString stringWithFormat:@"server send succ  : %@", text]];
@@ -387,6 +423,22 @@
         }
         
     }
+}
+
+
+- (NSData *)sendDataOf:(NSString *)text
+{
+    
+    return [text dataUsingEncoding:NSUTF8StringEncoding];
+    
+    HostMsg *msg = [[HostMsg alloc] init];
+    msg.msg = text;
+    
+    HostMsgData *data = [[HostMsgData alloc] init];
+    data.msg = msg;
+    
+    return [data toData];
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
