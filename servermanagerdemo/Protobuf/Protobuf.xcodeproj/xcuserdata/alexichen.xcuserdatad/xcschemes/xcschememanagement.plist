@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>ProtobufForMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>92070CA61F60F20200A2FD46</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>923C38BE1F61695D00DF0323</key>
 		<dict>
 			<key>primary</key>
 			<true/>

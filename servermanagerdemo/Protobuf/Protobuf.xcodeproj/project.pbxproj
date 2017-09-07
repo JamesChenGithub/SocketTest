@@ -81,6 +81,80 @@
 		92070E1E1F60F22700A2FD46 /* unknown_field_set.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DA81F60F22700A2FD46 /* unknown_field_set.cc */; };
 		92070E201F60F22700A2FD46 /* wire_format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DAB1F60F22700A2FD46 /* wire_format.cc */; };
 		92070E211F60F22700A2FD46 /* wire_format_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DAD1F60F22700A2FD46 /* wire_format_lite.cc */; };
+		923C38C81F6169F000DF0323 /* code_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CB61F60F22700A2FD46 /* code_generator.cc */; };
+		923C38C91F6169F000DF0323 /* command_line_interface.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CB81F60F22700A2FD46 /* command_line_interface.cc */; };
+		923C38CA1F6169F000DF0323 /* cpp_enum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CBD1F60F22700A2FD46 /* cpp_enum.cc */; };
+		923C38CB1F6169F000DF0323 /* cpp_enum_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CBF1F60F22700A2FD46 /* cpp_enum_field.cc */; };
+		923C38CC1F6169F000DF0323 /* cpp_extension.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CC11F60F22700A2FD46 /* cpp_extension.cc */; };
+		923C38CD1F6169F000DF0323 /* cpp_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CC31F60F22700A2FD46 /* cpp_field.cc */; };
+		923C38CE1F6169F000DF0323 /* cpp_file.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CC51F60F22700A2FD46 /* cpp_file.cc */; };
+		923C38CF1F6169F000DF0323 /* cpp_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CC71F60F22700A2FD46 /* cpp_generator.cc */; };
+		923C38D01F6169F000DF0323 /* cpp_helpers.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CC91F60F22700A2FD46 /* cpp_helpers.cc */; };
+		923C38D11F6169F000DF0323 /* cpp_message.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CCB1F60F22700A2FD46 /* cpp_message.cc */; };
+		923C38D21F6169F000DF0323 /* cpp_message_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CCD1F60F22700A2FD46 /* cpp_message_field.cc */; };
+		923C38D31F6169F000DF0323 /* cpp_primitive_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CD11F60F22700A2FD46 /* cpp_primitive_field.cc */; };
+		923C38D41F6169F000DF0323 /* cpp_service.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CD31F60F22700A2FD46 /* cpp_service.cc */; };
+		923C38D51F6169F000DF0323 /* cpp_string_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CD51F60F22700A2FD46 /* cpp_string_field.cc */; };
+		923C38D61F6169F000DF0323 /* importer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CDA1F60F22700A2FD46 /* importer.cc */; };
+		923C38D71F6169F000DF0323 /* java_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CDE1F60F22700A2FD46 /* java_context.cc */; };
+		923C38D81F6169F000DF0323 /* java_doc_comment.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CE01F60F22700A2FD46 /* java_doc_comment.cc */; };
+		923C38D91F6169F000DF0323 /* java_enum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CE31F60F22700A2FD46 /* java_enum.cc */; };
+		923C38DA1F6169F000DF0323 /* java_enum_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CE51F60F22700A2FD46 /* java_enum_field.cc */; };
+		923C38DB1F6169F000DF0323 /* java_extension.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CE71F60F22700A2FD46 /* java_extension.cc */; };
+		923C38DC1F6169F000DF0323 /* java_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CE91F60F22700A2FD46 /* java_field.cc */; };
+		923C38DD1F6169F000DF0323 /* java_file.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CEB1F60F22700A2FD46 /* java_file.cc */; };
+		923C38DE1F6169F000DF0323 /* java_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CED1F60F22700A2FD46 /* java_generator.cc */; };
+		923C38DF1F6169F000DF0323 /* java_generator_factory.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CEF1F60F22700A2FD46 /* java_generator_factory.cc */; };
+		923C38E01F6169F000DF0323 /* java_helpers.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CF11F60F22700A2FD46 /* java_helpers.cc */; };
+		923C38E11F6169F000DF0323 /* java_lazy_message_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CF31F60F22700A2FD46 /* java_lazy_message_field.cc */; };
+		923C38E21F6169F000DF0323 /* java_message.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CF51F60F22700A2FD46 /* java_message.cc */; };
+		923C38E31F6169F000DF0323 /* java_message_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CF71F60F22700A2FD46 /* java_message_field.cc */; };
+		923C38E41F6169F000DF0323 /* java_name_resolver.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CF91F60F22700A2FD46 /* java_name_resolver.cc */; };
+		923C38E51F6169F000DF0323 /* java_primitive_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CFC1F60F22700A2FD46 /* java_primitive_field.cc */; };
+		923C38E61F6169F000DF0323 /* java_service.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070CFE1F60F22700A2FD46 /* java_service.cc */; };
+		923C38E71F6169F000DF0323 /* java_shared_code_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D001F60F22700A2FD46 /* java_shared_code_generator.cc */; };
+		923C38E81F6169F000DF0323 /* java_string_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D021F60F22700A2FD46 /* java_string_field.cc */; };
+		923C38E91F6169F000DF0323 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D041F60F22700A2FD46 /* main.cc */; };
+		923C38EA1F6169F000DF0323 /* mock_code_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D051F60F22700A2FD46 /* mock_code_generator.cc */; };
+		923C38EB1F6169F000DF0323 /* parser.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D081F60F22700A2FD46 /* parser.cc */; };
+		923C38EC1F6169F000DF0323 /* plugin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D0B1F60F22700A2FD46 /* plugin.cc */; };
+		923C38ED1F6169F000DF0323 /* plugin.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D0D1F60F22700A2FD46 /* plugin.pb.cc */; };
+		923C38EE1F6169F000DF0323 /* python_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D111F60F22700A2FD46 /* python_generator.cc */; };
+		923C38EF1F6169F000DF0323 /* subprocess.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D141F60F22700A2FD46 /* subprocess.cc */; };
+		923C38F01F6169F000DF0323 /* zip_writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D181F60F22700A2FD46 /* zip_writer.cc */; };
+		923C38F11F6169F000DF0323 /* descriptor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D1A1F60F22700A2FD46 /* descriptor.cc */; };
+		923C38F21F6169F000DF0323 /* descriptor.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D1C1F60F22700A2FD46 /* descriptor.pb.cc */; };
+		923C38F31F6169F000DF0323 /* descriptor_database.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D1F1F60F22700A2FD46 /* descriptor_database.cc */; };
+		923C38F41F6169F000DF0323 /* dynamic_message.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D231F60F22700A2FD46 /* dynamic_message.cc */; };
+		923C38F51F6169F000DF0323 /* extension_set.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D261F60F22700A2FD46 /* extension_set.cc */; };
+		923C38F61F6169F000DF0323 /* extension_set_heavy.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D281F60F22700A2FD46 /* extension_set_heavy.cc */; };
+		923C38F71F6169F000DF0323 /* generated_message_reflection.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D2B1F60F22700A2FD46 /* generated_message_reflection.cc */; };
+		923C38F81F6169F000DF0323 /* generated_message_util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D2E1F60F22700A2FD46 /* generated_message_util.cc */; };
+		923C38F91F6169F000DF0323 /* coded_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D311F60F22700A2FD46 /* coded_stream.cc */; };
+		923C38FA1F6169F000DF0323 /* gzip_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D351F60F22700A2FD46 /* gzip_stream.cc */; };
+		923C38FB1F6169F000DF0323 /* printer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D391F60F22700A2FD46 /* printer.cc */; };
+		923C38FC1F6169F000DF0323 /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D3C1F60F22700A2FD46 /* strtod.cc */; };
+		923C38FD1F6169F000DF0323 /* tokenizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D3E1F60F22700A2FD46 /* tokenizer.cc */; };
+		923C38FE1F6169F000DF0323 /* zero_copy_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D411F60F22700A2FD46 /* zero_copy_stream.cc */; };
+		923C38FF1F6169F000DF0323 /* zero_copy_stream_impl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D431F60F22700A2FD46 /* zero_copy_stream_impl.cc */; };
+		923C39001F6169F000DF0323 /* zero_copy_stream_impl_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D451F60F22700A2FD46 /* zero_copy_stream_impl_lite.cc */; };
+		923C39011F6169F000DF0323 /* message.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D491F60F22700A2FD46 /* message.cc */; };
+		923C39021F6169F000DF0323 /* message_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D4B1F60F22700A2FD46 /* message_lite.cc */; };
+		923C39031F6169F000DF0323 /* reflection_ops.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D4F1F60F22700A2FD46 /* reflection_ops.cc */; };
+		923C39041F6169F000DF0323 /* repeated_field.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D521F60F22700A2FD46 /* repeated_field.cc */; };
+		923C39051F6169F000DF0323 /* service.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D561F60F22700A2FD46 /* service.cc */; };
+		923C39061F6169F000DF0323 /* atomicops_internals_x86_gcc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D641F60F22700A2FD46 /* atomicops_internals_x86_gcc.cc */; };
+		923C39071F6169F000DF0323 /* atomicops_internals_x86_msvc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D661F60F22700A2FD46 /* atomicops_internals_x86_msvc.cc */; };
+		923C39081F6169F000DF0323 /* common.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D681F60F22700A2FD46 /* common.cc */; };
+		923C39091F6169F000DF0323 /* once.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D6D1F60F22700A2FD46 /* once.cc */; };
+		923C390A1F6169F000DF0323 /* stringprintf.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D731F60F22700A2FD46 /* stringprintf.cc */; };
+		923C390B1F6169F000DF0323 /* structurally_valid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D761F60F22700A2FD46 /* structurally_valid.cc */; };
+		923C390C1F6169F000DF0323 /* strutil.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D781F60F22700A2FD46 /* strutil.cc */; };
+		923C390D1F6169F000DF0323 /* substitute.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D7B1F60F22700A2FD46 /* substitute.cc */; };
+		923C390E1F6169F000DF0323 /* text_format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070D971F60F22700A2FD46 /* text_format.cc */; };
+		923C390F1F6169F000DF0323 /* unknown_field_set.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DA81F60F22700A2FD46 /* unknown_field_set.cc */; };
+		923C39101F6169F000DF0323 /* wire_format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DAB1F60F22700A2FD46 /* wire_format.cc */; };
+		923C39111F6169F000DF0323 /* wire_format_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 92070DAD1F60F22700A2FD46 /* wire_format_lite.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -270,10 +344,18 @@
 		92070DAE1F60F22700A2FD46 /* wire_format_lite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite.h; sourceTree = "<group>"; };
 		92070DAF1F60F22700A2FD46 /* wire_format_lite_inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite_inl.h; sourceTree = "<group>"; };
 		92070E231F60F57A00A2FD46 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = "protobuf-2.6.1/config.h"; sourceTree = "<group>"; };
+		923C38BF1F61695D00DF0323 /* libProtobufForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProtobufForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		92070CA41F60F20200A2FD46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		923C38BC1F61695D00DF0323 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -295,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				92070CA71F60F20200A2FD46 /* libProtobuf.a */,
+				923C38BF1F61695D00DF0323 /* libProtobufForMac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -546,6 +629,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		923C38BD1F61695D00DF0323 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		92070CA61F60F20200A2FD46 /* Protobuf */ = {
 			isa = PBXNativeTarget;
@@ -564,6 +657,23 @@
 			productReference = 92070CA71F60F20200A2FD46 /* libProtobuf.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		923C38BE1F61695D00DF0323 /* ProtobufForMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 923C38C51F61695D00DF0323 /* Build configuration list for PBXNativeTarget "ProtobufForMac" */;
+			buildPhases = (
+				923C38BB1F61695D00DF0323 /* Sources */,
+				923C38BC1F61695D00DF0323 /* Frameworks */,
+				923C38BD1F61695D00DF0323 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ProtobufForMac;
+			productName = ProtobufForMac;
+			productReference = 923C38BF1F61695D00DF0323 /* libProtobufForMac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -574,6 +684,11 @@
 				ORGANIZATIONNAME = AlexiChen;
 				TargetAttributes = {
 					92070CA61F60F20200A2FD46 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 43YJ58H38Q;
+						ProvisioningStyle = Automatic;
+					};
+					923C38BE1F61695D00DF0323 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 43YJ58H38Q;
 						ProvisioningStyle = Automatic;
@@ -593,6 +708,7 @@
 			projectRoot = "";
 			targets = (
 				92070CA61F60F20200A2FD46 /* Protobuf */,
+				923C38BE1F61695D00DF0323 /* ProtobufForMac */,
 			);
 		};
 /* End PBXProject section */
@@ -676,6 +792,87 @@
 				92070DCE1F60F22700A2FD46 /* java_generator_factory.cc in Sources */,
 				92070E061F60F22700A2FD46 /* service.cc in Sources */,
 				92070DCD1F60F22700A2FD46 /* java_generator.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		923C38BB1F61695D00DF0323 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				923C38C81F6169F000DF0323 /* code_generator.cc in Sources */,
+				923C38C91F6169F000DF0323 /* command_line_interface.cc in Sources */,
+				923C38CA1F6169F000DF0323 /* cpp_enum.cc in Sources */,
+				923C38CB1F6169F000DF0323 /* cpp_enum_field.cc in Sources */,
+				923C38CC1F6169F000DF0323 /* cpp_extension.cc in Sources */,
+				923C38CD1F6169F000DF0323 /* cpp_field.cc in Sources */,
+				923C38CE1F6169F000DF0323 /* cpp_file.cc in Sources */,
+				923C38CF1F6169F000DF0323 /* cpp_generator.cc in Sources */,
+				923C38D01F6169F000DF0323 /* cpp_helpers.cc in Sources */,
+				923C38D11F6169F000DF0323 /* cpp_message.cc in Sources */,
+				923C38D21F6169F000DF0323 /* cpp_message_field.cc in Sources */,
+				923C38D31F6169F000DF0323 /* cpp_primitive_field.cc in Sources */,
+				923C38D41F6169F000DF0323 /* cpp_service.cc in Sources */,
+				923C38D51F6169F000DF0323 /* cpp_string_field.cc in Sources */,
+				923C38D61F6169F000DF0323 /* importer.cc in Sources */,
+				923C38D71F6169F000DF0323 /* java_context.cc in Sources */,
+				923C38D81F6169F000DF0323 /* java_doc_comment.cc in Sources */,
+				923C38D91F6169F000DF0323 /* java_enum.cc in Sources */,
+				923C38DA1F6169F000DF0323 /* java_enum_field.cc in Sources */,
+				923C38DB1F6169F000DF0323 /* java_extension.cc in Sources */,
+				923C38DC1F6169F000DF0323 /* java_field.cc in Sources */,
+				923C38DD1F6169F000DF0323 /* java_file.cc in Sources */,
+				923C38DE1F6169F000DF0323 /* java_generator.cc in Sources */,
+				923C38DF1F6169F000DF0323 /* java_generator_factory.cc in Sources */,
+				923C38E01F6169F000DF0323 /* java_helpers.cc in Sources */,
+				923C38E11F6169F000DF0323 /* java_lazy_message_field.cc in Sources */,
+				923C38E21F6169F000DF0323 /* java_message.cc in Sources */,
+				923C38E31F6169F000DF0323 /* java_message_field.cc in Sources */,
+				923C38E41F6169F000DF0323 /* java_name_resolver.cc in Sources */,
+				923C38E51F6169F000DF0323 /* java_primitive_field.cc in Sources */,
+				923C38E61F6169F000DF0323 /* java_service.cc in Sources */,
+				923C38E71F6169F000DF0323 /* java_shared_code_generator.cc in Sources */,
+				923C38E81F6169F000DF0323 /* java_string_field.cc in Sources */,
+				923C38E91F6169F000DF0323 /* main.cc in Sources */,
+				923C38EA1F6169F000DF0323 /* mock_code_generator.cc in Sources */,
+				923C38EB1F6169F000DF0323 /* parser.cc in Sources */,
+				923C38EC1F6169F000DF0323 /* plugin.cc in Sources */,
+				923C38ED1F6169F000DF0323 /* plugin.pb.cc in Sources */,
+				923C38EE1F6169F000DF0323 /* python_generator.cc in Sources */,
+				923C38EF1F6169F000DF0323 /* subprocess.cc in Sources */,
+				923C38F01F6169F000DF0323 /* zip_writer.cc in Sources */,
+				923C38F11F6169F000DF0323 /* descriptor.cc in Sources */,
+				923C38F21F6169F000DF0323 /* descriptor.pb.cc in Sources */,
+				923C38F31F6169F000DF0323 /* descriptor_database.cc in Sources */,
+				923C38F41F6169F000DF0323 /* dynamic_message.cc in Sources */,
+				923C38F51F6169F000DF0323 /* extension_set.cc in Sources */,
+				923C38F61F6169F000DF0323 /* extension_set_heavy.cc in Sources */,
+				923C38F71F6169F000DF0323 /* generated_message_reflection.cc in Sources */,
+				923C38F81F6169F000DF0323 /* generated_message_util.cc in Sources */,
+				923C38F91F6169F000DF0323 /* coded_stream.cc in Sources */,
+				923C38FA1F6169F000DF0323 /* gzip_stream.cc in Sources */,
+				923C38FB1F6169F000DF0323 /* printer.cc in Sources */,
+				923C38FC1F6169F000DF0323 /* strtod.cc in Sources */,
+				923C38FD1F6169F000DF0323 /* tokenizer.cc in Sources */,
+				923C38FE1F6169F000DF0323 /* zero_copy_stream.cc in Sources */,
+				923C38FF1F6169F000DF0323 /* zero_copy_stream_impl.cc in Sources */,
+				923C39001F6169F000DF0323 /* zero_copy_stream_impl_lite.cc in Sources */,
+				923C39011F6169F000DF0323 /* message.cc in Sources */,
+				923C39021F6169F000DF0323 /* message_lite.cc in Sources */,
+				923C39031F6169F000DF0323 /* reflection_ops.cc in Sources */,
+				923C39041F6169F000DF0323 /* repeated_field.cc in Sources */,
+				923C39051F6169F000DF0323 /* service.cc in Sources */,
+				923C39061F6169F000DF0323 /* atomicops_internals_x86_gcc.cc in Sources */,
+				923C39071F6169F000DF0323 /* atomicops_internals_x86_msvc.cc in Sources */,
+				923C39081F6169F000DF0323 /* common.cc in Sources */,
+				923C39091F6169F000DF0323 /* once.cc in Sources */,
+				923C390A1F6169F000DF0323 /* stringprintf.cc in Sources */,
+				923C390B1F6169F000DF0323 /* structurally_valid.cc in Sources */,
+				923C390C1F6169F000DF0323 /* strutil.cc in Sources */,
+				923C390D1F6169F000DF0323 /* substitute.cc in Sources */,
+				923C390E1F6169F000DF0323 /* text_format.cc in Sources */,
+				923C390F1F6169F000DF0323 /* unknown_field_set.cc in Sources */,
+				923C39101F6169F000DF0323 /* wire_format.cc in Sources */,
+				923C39111F6169F000DF0323 /* wire_format_lite.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,6 +977,7 @@
 					"$(SRCROOT)/Protobuf/protobuf-2.6.1/src/**",
 					"$(SRCROOT)/Protobuf/protobuf-2.6.1/gtest/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -794,9 +992,42 @@
 					"$(SRCROOT)/Protobuf/protobuf-2.6.1/src/**",
 					"$(SRCROOT)/Protobuf/protobuf-2.6.1/gtest/**",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		923C38C61F61695D00DF0323 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEVELOPMENT_TEAM = 43YJ58H38Q;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Protobuf/protobuf-2.6.1/src/**",
+					"$(SRCROOT)/Protobuf/protobuf-2.6.1/gtest/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		923C38C71F61695D00DF0323 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEVELOPMENT_TEAM = 43YJ58H38Q;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Protobuf/protobuf-2.6.1/src/**",
+					"$(SRCROOT)/Protobuf/protobuf-2.6.1/gtest/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -817,6 +1048,15 @@
 			buildConfigurations = (
 				92070CB11F60F20200A2FD46 /* Debug */,
 				92070CB21F60F20200A2FD46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		923C38C51F61695D00DF0323 /* Build configuration list for PBXNativeTarget "ProtobufForMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				923C38C61F61695D00DF0323 /* Debug */,
+				923C38C71F61695D00DF0323 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		923C38A91F61265D00DF0323 /* TCPUser.proto in Resources */ = {isa = PBXBuildFile; fileRef = 923C38A81F61265D00DF0323 /* TCPUser.proto */; };
+		923C38B91F61681800DF0323 /* TCPUser.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 923C38B71F61681800DF0323 /* TCPUser.pb.cc */; };
+		923C39171F616A1100DF0323 /* libProtobufForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 923C39141F616A0900DF0323 /* libProtobufForMac.a */; };
 		924118131F5EC5A500BCDF92 /* TCPServerSwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924118111F5EC5A500BCDF92 /* TCPServerSwitch.cpp */; };
 		924118161F5EC6B000BCDF92 /* TCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924118141F5EC6B000BCDF92 /* TCPClient.cpp */; };
 		92CC53791F595E3B00445E47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC53781F595E3B00445E47 /* AppDelegate.m */; };
@@ -17,7 +20,35 @@
 		92CC53901F59651600445E47 /* TCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC538E1F59651600445E47 /* TCPServer.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		923C38A21F61260000DF0323 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 923C389E1F61260000DF0323 /* Protobuf.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 92070CA71F60F20200A2FD46;
+			remoteInfo = Protobuf;
+		};
+		923C39131F616A0900DF0323 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 923C389E1F61260000DF0323 /* Protobuf.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 923C38BF1F61695D00DF0323;
+			remoteInfo = ProtobufForMac;
+		};
+		923C39151F616A0B00DF0323 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 923C389E1F61260000DF0323 /* Protobuf.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 923C38BE1F61695D00DF0323;
+			remoteInfo = ProtobufForMac;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		923C389E1F61260000DF0323 /* Protobuf.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Protobuf.xcodeproj; path = ../Protobuf/Protobuf.xcodeproj; sourceTree = "<group>"; };
+		923C38A81F61265D00DF0323 /* TCPUser.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TCPUser.proto; sourceTree = "<group>"; };
+		923C38B71F61681800DF0323 /* TCPUser.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPUser.pb.cc; sourceTree = "<group>"; };
+		923C38B81F61681800DF0323 /* TCPUser.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPUser.pb.h; sourceTree = "<group>"; };
 		924118111F5EC5A500BCDF92 /* TCPServerSwitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPServerSwitch.cpp; sourceTree = "<group>"; };
 		924118121F5EC5A500BCDF92 /* TCPServerSwitch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServerSwitch.hpp; sourceTree = "<group>"; };
 		924118141F5EC6B000BCDF92 /* TCPClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPClient.cpp; sourceTree = "<group>"; };
@@ -41,15 +72,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923C39171F616A1100DF0323 /* libProtobufForMac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		923C389F1F61260000DF0323 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				923C38A31F61260000DF0323 /* libProtobuf.a */,
+				923C39141F616A0900DF0323 /* libProtobufForMac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		923C38A71F61262C00DF0323 /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				923C38B71F61681800DF0323 /* TCPUser.pb.cc */,
+				923C38B81F61681800DF0323 /* TCPUser.pb.h */,
+				923C38A81F61265D00DF0323 /* TCPUser.proto */,
+			);
+			path = Proto;
+			sourceTree = "<group>";
+		};
 		92CC536B1F595E3B00445E47 = {
 			isa = PBXGroup;
 			children = (
+				923C38A71F61262C00DF0323 /* Proto */,
+				923C389E1F61260000DF0323 /* Protobuf.xcodeproj */,
 				92CC53761F595E3B00445E47 /* ServerManager */,
 				92CC53751F595E3B00445E47 /* Products */,
 			);
@@ -107,6 +160,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				923C39161F616A0B00DF0323 /* PBXTargetDependency */,
 			);
 			name = ServerManager;
 			productName = ServerManager;
@@ -140,12 +194,35 @@
 			mainGroup = 92CC536B1F595E3B00445E47;
 			productRefGroup = 92CC53751F595E3B00445E47 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 923C389F1F61260000DF0323 /* Products */;
+					ProjectRef = 923C389E1F61260000DF0323 /* Protobuf.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				92CC53731F595E3B00445E47 /* ServerManager */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		923C38A31F61260000DF0323 /* libProtobuf.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libProtobuf.a;
+			remoteRef = 923C38A21F61260000DF0323 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		923C39141F616A0900DF0323 /* libProtobufForMac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libProtobufForMac.a;
+			remoteRef = 923C39131F616A0900DF0323 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		92CC53721F595E3B00445E47 /* Resources */ = {
@@ -154,6 +231,7 @@
 			files = (
 				92CC53811F595E3B00445E47 /* Assets.xcassets in Resources */,
 				92CC53841F595E3B00445E47 /* Main.storyboard in Resources */,
+				923C38A91F61265D00DF0323 /* TCPUser.proto in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				924118161F5EC6B000BCDF92 /* TCPClient.cpp in Sources */,
+				923C38B91F61681800DF0323 /* TCPUser.pb.cc in Sources */,
 				924118131F5EC5A500BCDF92 /* TCPServerSwitch.cpp in Sources */,
 				92CC537F1F595E3B00445E47 /* ViewController.mm in Sources */,
 				92CC537C1F595E3B00445E47 /* main.m in Sources */,
@@ -174,6 +253,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		923C39161F616A0B00DF0323 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ProtobufForMac;
+			targetProxy = 923C39151F616A0B00DF0323 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		92CC53821F595E3B00445E47 /* Main.storyboard */ = {
@@ -284,6 +371,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 43YJ58H38Q;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Protobuf/Protobuf/protobuf-2.6.1/src/**",
+					"$(SRCROOT)/../Protobuf/Protobuf/protobuf-2.6.1/gtest",
+				);
 				INFOPLIST_FILE = ServerManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.ServerManager;
@@ -299,6 +390,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 43YJ58H38Q;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Protobuf/Protobuf/protobuf-2.6.1/src/**",
+					"$(SRCROOT)/../Protobuf/Protobuf/protobuf-2.6.1/gtest",
+				);
 				INFOPLIST_FILE = ServerManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.ServerManager;

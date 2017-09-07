@@ -81,7 +81,7 @@ inline BOOL GetMessage(
 
 
 namespace std {}
-
+#define google alexigoogle
 namespace google {
 namespace protobuf {
 
