@@ -7,26 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		924118131F5EC5A500BCDF92 /* TCPServerSwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924118111F5EC5A500BCDF92 /* TCPServerSwitch.cpp */; };
+		924118161F5EC6B000BCDF92 /* TCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 924118141F5EC6B000BCDF92 /* TCPClient.cpp */; };
 		92CC53791F595E3B00445E47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC53781F595E3B00445E47 /* AppDelegate.m */; };
 		92CC537C1F595E3B00445E47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC537B1F595E3B00445E47 /* main.m */; };
-		92CC537F1F595E3B00445E47 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC537E1F595E3B00445E47 /* ViewController.m */; };
+		92CC537F1F595E3B00445E47 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92CC537E1F595E3B00445E47 /* ViewController.mm */; };
 		92CC53811F595E3B00445E47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92CC53801F595E3B00445E47 /* Assets.xcassets */; };
 		92CC53841F595E3B00445E47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92CC53821F595E3B00445E47 /* Main.storyboard */; };
-		92CC53901F59651600445E47 /* TCPServerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC538E1F59651600445E47 /* TCPServerManager.cpp */; };
+		92CC53901F59651600445E47 /* TCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CC538E1F59651600445E47 /* TCPServer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		924118111F5EC5A500BCDF92 /* TCPServerSwitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPServerSwitch.cpp; sourceTree = "<group>"; };
+		924118121F5EC5A500BCDF92 /* TCPServerSwitch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServerSwitch.hpp; sourceTree = "<group>"; };
+		924118141F5EC6B000BCDF92 /* TCPClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPClient.cpp; sourceTree = "<group>"; };
+		924118151F5EC6B000BCDF92 /* TCPClient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPClient.hpp; sourceTree = "<group>"; };
 		92CC53741F595E3B00445E47 /* ServerManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServerManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92CC53771F595E3B00445E47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		92CC53781F595E3B00445E47 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		92CC537B1F595E3B00445E47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		92CC537D1F595E3B00445E47 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		92CC537E1F595E3B00445E47 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		92CC537E1F595E3B00445E47 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		92CC53801F595E3B00445E47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92CC53831F595E3B00445E47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92CC53851F595E3B00445E47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		92CC538E1F59651600445E47 /* TCPServerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPServerManager.cpp; sourceTree = "<group>"; };
-		92CC538F1F59651600445E47 /* TCPServerManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServerManager.hpp; sourceTree = "<group>"; };
+		92CC538E1F59651600445E47 /* TCPServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPServer.cpp; sourceTree = "<group>"; };
+		92CC538F1F59651600445E47 /* TCPServer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TCPServer.hpp; sourceTree = "<group>"; };
 		92CC53921F596C1300445E47 /* Common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Common.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,14 +69,18 @@
 				92CC53771F595E3B00445E47 /* AppDelegate.h */,
 				92CC53781F595E3B00445E47 /* AppDelegate.m */,
 				92CC537D1F595E3B00445E47 /* ViewController.h */,
-				92CC537E1F595E3B00445E47 /* ViewController.m */,
+				92CC537E1F595E3B00445E47 /* ViewController.mm */,
 				92CC53801F595E3B00445E47 /* Assets.xcassets */,
 				92CC53821F595E3B00445E47 /* Main.storyboard */,
 				92CC53851F595E3B00445E47 /* Info.plist */,
 				92CC537A1F595E3B00445E47 /* Supporting Files */,
-				92CC538E1F59651600445E47 /* TCPServerManager.cpp */,
-				92CC538F1F59651600445E47 /* TCPServerManager.hpp */,
+				92CC538E1F59651600445E47 /* TCPServer.cpp */,
+				92CC538F1F59651600445E47 /* TCPServer.hpp */,
 				92CC53921F596C1300445E47 /* Common.hpp */,
+				924118111F5EC5A500BCDF92 /* TCPServerSwitch.cpp */,
+				924118121F5EC5A500BCDF92 /* TCPServerSwitch.hpp */,
+				924118141F5EC6B000BCDF92 /* TCPClient.cpp */,
+				924118151F5EC6B000BCDF92 /* TCPClient.hpp */,
 			);
 			path = ServerManager;
 			sourceTree = "<group>";
@@ -154,9 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92CC537F1F595E3B00445E47 /* ViewController.m in Sources */,
+				924118161F5EC6B000BCDF92 /* TCPClient.cpp in Sources */,
+				924118131F5EC5A500BCDF92 /* TCPServerSwitch.cpp in Sources */,
+				92CC537F1F595E3B00445E47 /* ViewController.mm in Sources */,
 				92CC537C1F595E3B00445E47 /* main.m in Sources */,
-				92CC53901F59651600445E47 /* TCPServerManager.cpp in Sources */,
+				92CC53901F59651600445E47 /* TCPServer.cpp in Sources */,
 				92CC53791F595E3B00445E47 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +325,7 @@
 				92CC538A1F595E3B00445E47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
