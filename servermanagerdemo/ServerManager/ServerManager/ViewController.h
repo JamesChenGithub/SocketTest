@@ -19,7 +19,10 @@ class TCPServerMonitor;
     
     NSInteger _typeIndex;
 }
+
+@property (weak) IBOutlet NSTextField *nickName;
 @property (weak) IBOutlet NSTextField *ipAddr;
+
 
 @property (weak) IBOutlet NSTextField *ipPort;
 @property (weak) IBOutlet NSTextView *textView;

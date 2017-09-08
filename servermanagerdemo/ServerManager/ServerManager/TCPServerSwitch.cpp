@@ -27,7 +27,7 @@ TCPServerSwitch::TCPServerSwitch()
     std::cout << "TCPServerSwitch() constructor" << std::endl;
 }
 
-TCPServerSwitch::TCPServerSwitch(std::shared_ptr<TCPConnectItem>  item):TCPServer(item)
+TCPServerSwitch::TCPServerSwitch(std::shared_ptr<TCPConnectItem> item):TCPServer(item)
 {
     
 }

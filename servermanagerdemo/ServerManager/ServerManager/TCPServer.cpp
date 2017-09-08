@@ -437,7 +437,7 @@ void TCPServer::onRecvMsgFromClient(std::shared_ptr<TCPConnectItem> clientItem)
                         if (it != mConnMap.end())
                         {
                             // 向接口机转发
-                            send(it->second->mSocketID, buf, size, 0);
+                            ssize_t len = send(it->second->mSocketID, buf, size, 0);
                             
                             std::ostringstream stream;
                             if (len > 0)
@@ -475,10 +475,10 @@ void TCPServer::onRecvMsgFromClient(std::shared_ptr<TCPConnectItem> clientItem)
                                 std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it ;
                                 for (it = mConnMap.begin(); it != mConnMap.end(); it++)
                                 {
-                                    if (it->second->servkey() == mHostItem->getKey() && it->second->getKey() != clientItem->getKey())
+                                    if (it->second->mServKey == mHostItem->getKey() && it->second->getKey() != clientItem->getKey())
                                     {
                                         // 向其转发
-                                        send(it->second->mSocketID, buf, size, 0);
+                                        ssize_t len = send(it->second->mSocketID, buf, size, 0);
                                         
                                         std::ostringstream stream;
                                         if (len > 0)
