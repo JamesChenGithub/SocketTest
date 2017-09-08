@@ -467,20 +467,46 @@ void TCPServer::onRecvMsgFromClient(std::shared_ptr<TCPConnectItem> clientItem)
                         switch (type)
                         {
                             case TCPCmdContent_TCPMsgType_ECmd_Login:
+                            case TCPCmdContent_TCPMsgType_ECmd_Exit:
                             {
+                                // 说明是switch转发过来的
+                                // 端需要同步给其他的
+                                
+                                std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it ;
+                                for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+                                {
+                                    if (it->second->servkey() == mHostItem->getKey() && it->second->getKey() != clientItem->getKey())
+                                    {
+                                        // 向其转发
+                                        send(it->second->mSocketID, buf, size, 0);
+                                        
+                                        std::ostringstream stream;
+                                        if (len > 0)
+                                        {
+                                            stream << "向" << it->second->getKey() << "转发登录消息成功" << std::endl;
+                                        }
+                                        else
+                                        {
+                                            stream << "向" << it->second->getKey() << "转发登录消息失败" << std::endl;
+                                        }
+                                        
+                                        onTipInfo(stream.str());
+                                    }
+                                }
+                                
+                                
                                 break;
                             }
                             case TCPCmdContent_TCPMsgType_ECmd_Sync:
                             {
+                                // 不可能收到
                                 break;
                             }
-                            case TCPCmdContent_TCPMsgType_ECmd_Exit:
-                            {
-                                break;
-                            }
+                            
+                            
                             case TCPCmdContent_TCPMsgType_ECmd_Nick:
                             {
-                                
+                                // 不可能收到
                             }
                                 
                                 break;
