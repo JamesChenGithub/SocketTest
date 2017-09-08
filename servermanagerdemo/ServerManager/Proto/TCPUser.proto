@@ -7,6 +7,7 @@ required string hostIP = 1;     // IP地址
 required string hostPort = 2;   // 端口号
 optional int32 socketid = 3;    // sockitID
 optional string nick = 4;       // 昵称
+optional string servKey = 5;       // 昵称
 }
 
 message TCPMsg
@@ -41,9 +42,10 @@ required TCPUser toUser = 1;
 
 enum TCPMsgType
 {
-ECmd_Login = 1;     // 登录
-ECmd_Sync = 2;     // 同步列表
-ECmd_Exit = 3;      // 退出
+ECmd_Login = 1;         // 登录，通知有人登录了
+ECmd_Sync = 2;          // 对登录的人同步所有列表
+ECmd_Exit = 3;          // 退出，单条通知有人下
+ECmd_Nick = 4;          // 退出，单条通知有人下
 }
 
 required TCPMsgType cmdType = 2;

@@ -15,11 +15,18 @@
 #import <ifaddrs.h>
 #import <net/if.h>
 #import <unistd.h>
+#include <sstream>
+
+#include "TCPUser.pb.h"
 
 TCPServer::TCPServer(std::shared_ptr<TCPConnectItem> item)
 {
-    std::unique_ptr<TCPConnectItem> ptr(new TCPConnectItem(*item));
-    mHostItem = std::move(ptr);
+    if (isVaildItem(item))
+    {
+        std::unique_ptr<TCPConnectItem> ptr(new TCPConnectItem(*item));
+        ptr->mServKey = ptr->getKey();
+        mHostItem = std::move(ptr);
+    }
 }
 
 void TCPServer::setHost(std::shared_ptr<TCPConnectItem> item)
@@ -53,7 +60,7 @@ void TCPServer::setListener(std::shared_ptr<TCPServerListener> aListener)
 
 bool TCPServer::start()
 {
-    if (!isVaildItem(mHostItem.get()))
+    if (!isVaildItem(std::make_shared<TCPConnectItem>(*mHostItem)))
     {
         onListenError(-1, "ip地址或端口有误");
         return false;
@@ -107,15 +114,14 @@ bool TCPServer::start()
 
 bool TCPServer::connectServer(std::shared_ptr<TCPConnectItem> item)
 {
-    std::unique_ptr<TCPConnectItem> ptr(new TCPConnectItem(*item));
-    mHostItem = std::move(ptr);
     
-    if (!isVaildItem(mHostItem.get()))
+    if (!isVaildItem(item))
     {
         onListenError(-1, "ip地址或端口有误");
         return false;
     }
     
+    mHostItem = item;
     
     int socketID = socket(AF_INET, SOCK_STREAM, 0);
     if (socketID < 0)
@@ -145,7 +151,7 @@ bool TCPServer::connectServer(std::shared_ptr<TCPConnectItem> item)
     onTipInfo("connect Socket成功");
     
     mAcceptThread = std::thread([this]{
-        onTipInfo("开始接收链接");
+        onTipInfo("开始接收ServerSwitch数据");
         this->onRecvMsgFromServer();
     });
     mAcceptThread.detach();
@@ -154,7 +160,7 @@ bool TCPServer::connectServer(std::shared_ptr<TCPConnectItem> item)
 
 void TCPServer::testPrint()
 {
-
+    
     std::cout << "TCPServer::testPrint()" << std::endl;
 }
 
@@ -164,7 +170,7 @@ const std::map<std::string, std::shared_ptr<TCPConnectItem>> TCPServer::getConne
     return mConnMap;
 }
 
-bool TCPServer::isVaildItem(TCPConnectItem *item)
+bool TCPServer::isVaildItem(std::shared_ptr<TCPConnectItem>item)
 {
     const char *host = item->mHost.c_str();
     if (host)
@@ -229,7 +235,7 @@ void TCPServer::onConnectError(int err, std::string errinfo)
     }
 }
 
-void TCPServer::onListenMsg(TCPConnectItem *item, std::string msg)
+void TCPServer::onListenMsg(std::shared_ptr<TCPConnectItem> item, std::string msg)
 {
     if (!mListener.expired())
     {
@@ -241,7 +247,7 @@ void TCPServer::onListenMsg(TCPConnectItem *item, std::string msg)
     }
 }
 
-void TCPServer::onAcceptConnect(TCPConnectItem *item)
+void TCPServer::onAcceptConnect(std::shared_ptr<TCPConnectItem>item)
 {
     if (!mListener.expired())
     {
@@ -253,7 +259,19 @@ void TCPServer::onAcceptConnect(TCPConnectItem *item)
     }
 }
 
-void TCPServer::onExitConnect(TCPConnectItem *item)
+void TCPServer::onAcceptConnectList(std::list<std::shared_ptr<TCPConnectItem>> itemList)
+{
+    if (!mListener.expired())
+    {
+        std::shared_ptr<TCPServerListener> lis = mListener.lock();
+        if (lis)
+        {
+            lis->onAcceptConnectList(itemList);
+        }
+    }
+    
+}
+void TCPServer::onExitConnect(std::shared_ptr<TCPConnectItem>item)
 {
     if (!mListener.expired())
     {
@@ -287,23 +305,34 @@ void TCPServer::onAccept()
             std::string ipid = std::string(buf);
             onTipInfo("接受"+ipid+"连接");
             
-            TCPConnectItem *item = new TCPConnectItem();
+            std::shared_ptr<TCPConnectItem> item (new TCPConnectItem());
             item->mHost = std::string(cip);
             bzero(buf, sizeof(buf));
             sprintf(buf, "%d", port);
             item->mPort = std::string(buf);
             item->mSocketID = peer;
+            item->mNick = "ServerSwitch" + std::to_string((int)mConnMap.size());
+            item->mServKey = mHostItem->getKey();
             
-            
-            std::thread thread = std::thread([this, &item]{
+            std::thread thread = std::thread([this, &item] {
                 onTipInfo("new thread to recv msg");
                 this->onRecvMsgFromClient(item);
             });
             
             thread.detach();
+            mConnMap.insert(std::pair<std::string, std::shared_ptr<TCPConnectItem>>(ipid, item));
             
-            std::shared_ptr<TCPConnectItem> ip(item);
-            mConnMap.insert(std::pair<std::string, std::shared_ptr<TCPConnectItem>>(ipid, ip));
+            // 给其分配nickName
+            onNotifyNickName(item);
+            
+            if (mConnMap.size() > 1)
+            {
+                // 通知其他人
+                onNotifyLogin(item);
+                
+                // 同步用户列表不列表
+                onNotifySync(item);
+            }
             
             onAcceptConnect(item);
             
@@ -312,7 +341,7 @@ void TCPServer::onAccept()
     }
 }
 
-void TCPServer::onRecvMsg(TCPConnectItem *serverItem, std::string msg)
+void TCPServer::onRecvMsg(std::shared_ptr<TCPConnectItem> serverItem, std::string msg)
 {
     if (!mListener.expired())
     {
@@ -328,7 +357,6 @@ void TCPServer::onRecvMsg(TCPConnectItem *serverItem, std::string msg)
 void TCPServer::onRecvMsgFromServer()
 {
     mRunning = true;
-    
     while (mRunning)
     {
         char buf[kMaxCacheSize];
@@ -337,24 +365,23 @@ void TCPServer::onRecvMsgFromServer()
         
         if (size <= 0)
         {
-            
             break;
         }
         else
         {
             printf("recv from server : %s\n", buf);
             
-            onRecvMsg(mHostItem.get(), std::string(buf));
+            onRecvMsg(mHostItem, std::string(buf));
         }
     }
     
-    onExitConnect(mHostItem.get());
     close(mHostItem->mSocketID);
+    onExitConnect(mHostItem);
 }
 
 
 
-void TCPServer::onRecvMsgFromClient(TCPConnectItem *clientItem)
+void TCPServer::onRecvMsgFromClient(std::shared_ptr<TCPConnectItem> clientItem)
 {
     if (!clientItem)
     {
@@ -373,21 +400,353 @@ void TCPServer::onRecvMsgFromClient(TCPConnectItem *clientItem)
         {
             std::cout << "connection exit" << std::endl;
             exit = true;
+            
+            // 当前与之前的serverswitch断开
+            // 通知其他用户 serverswitch + serverswitch下的client断开
+            onNotifyServerSwitchExit(clientItem);
         }
         else
         {
-            std::string recvStr = "recv client (" + clientItem->mHost + ":" + clientItem->mPort + ") msg : " + std::string(buf);
             
-            std::cout << recvStr << std::endl;
+            TCPMsg *msg = new TCPMsg();
+            bool succ = msg->ParseFromArray(buf, (int)size);
             
-            onListenMsg(clientItem, std::string(buf));
+            if (succ)
+            {
+                TCPMsg_TCPMsgType msgType = msg->msgtype();
+                switch (msgType)
+                {
+                    case TCPMsg_TCPMsgType_EMsg_Msg:
+                    {
+                        // 转发消息
+                        TCPUser *fromUser = msg->mutable_fromuser();
+                        
+                        TCPMsgContent *content = msg->mutable_msgcontent();
+                        
+                        TCPUser *toUser = content->mutable_touser();
+                        
+                        std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it ;
+                        for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+                        {
+                            if (toUser->servkey() == it->second->getKey())
+                            {
+                                break;
+                            }
+                        }
+                        
+                        if (it != mConnMap.end())
+                        {
+                            // 向接口机转发
+                            send(it->second->mSocketID, buf, size, 0);
+                            
+                            std::ostringstream stream;
+                            if (len > 0)
+                            {
+                                stream << "向" << it->second->getKey() << "转发" << fromUser->mutable_hostip() << ":" << fromUser->mutable_hostport() << "给" << toUser->mutable_hostip() << ":" << toUser->mutable_hostport() <<"的消息成功" << std::endl;
+                            }
+                            else
+                            {
+                                stream << "向" << it->second->getKey() << "转发" << fromUser->mutable_hostip() << ":" << fromUser->mutable_hostport() << "给" << toUser->mutable_hostip() << ":" << toUser->mutable_hostport() <<"的消息失败" << std::endl;
+                            }
+                            
+                            onTipInfo(stream.str());
+                        }
+                        
+                        break;
+                    }
+                    case TCPMsg_TCPMsgType_EMsg_Cmd:
+                    {
+                        // 转发消息
+                        TCPUser *fromUser = msg->mutable_fromuser();
+                        
+                        TCPCmdContent *cmd = msg->mutable_cmdcontent();
+                        
+                        TCPUser *toUser = cmd->mutable_touser();
+                        
+                        TCPCmdContent_TCPMsgType type = cmd->cmdtype();
+                        switch (type)
+                        {
+                            case TCPCmdContent_TCPMsgType_ECmd_Login:
+                            {
+                                break;
+                            }
+                            case TCPCmdContent_TCPMsgType_ECmd_Sync:
+                            {
+                                break;
+                            }
+                            case TCPCmdContent_TCPMsgType_ECmd_Exit:
+                            {
+                                break;
+                            }
+                            case TCPCmdContent_TCPMsgType_ECmd_Nick:
+                            {
+                                
+                            }
+                                
+                                break;
+                                
+                            default:
+                                break;
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                std::string recvStr = "recv client (" + clientItem->mHost + ":" + clientItem->mPort + ") msg : " + std::string(buf);
+                
+                std::cout << recvStr << std::endl;
+                
+                onListenMsg(clientItem, std::string(buf));
+            }
             
-            exit = recvStr.find("exit") != std::string::npos;
+            delete msg;
+            msg = NULL;
         }
         
     } while(!exit);
     
     close(clientItem->mSocketID);
-    mConnMap.erase(std::string(clientItem->mHost + ":" + clientItem->mPort));
+    
+    // 清理当前列表
+    
+    
+}
+
+
+void TCPServer::onSwitchMsg(char *buf, std::shared_ptr<TCPConnectItem> fromUser, std::shared_ptr<TCPConnectItem> toUser)
+{
+    
+}
+
+void TCPServer::onNotifyLogin(std::shared_ptr<TCPConnectItem>clientItem)
+{
+    // 通知已连接上的用户，item登录上了
+    if (clientItem && mConnMap.size() > 1)
+    {
+        TCPMsg *msg = new TCPMsg();
+        
+        TCPUser *fromUser = new TCPUser();
+        fromUser->set_hostip(mHostItem->mHost);
+        fromUser->set_hostport(mHostItem->mPort);
+        fromUser->set_nick(mHostItem->mNick);
+        fromUser->set_servkey(mHostItem->mServKey);
+        
+        msg->set_allocated_fromuser(fromUser);
+        msg->set_msgtype(TCPMsg_TCPMsgType_EMsg_Cmd);
+        
+        const std::string key = clientItem->getKey();
+        std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it ;
+        for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+        {
+            if (it->first != key)
+            {
+                TCPCmdContent *cmdContent = new TCPCmdContent;
+                TCPUser *toUser = new TCPUser();
+                toUser->set_hostip(it->second->mHost);
+                toUser->set_hostport(it->second->mPort);
+                toUser->set_nick(it->second->mNick);
+                toUser->set_servkey(it->second->mServKey);
+                cmdContent->set_allocated_touser(toUser);
+                
+                
+                cmdContent->set_cmdtype(TCPCmdContent_TCPMsgType_ECmd_Login);
+                
+                TCPUser *paramUser = new TCPUser();
+                paramUser->set_hostip(clientItem->mHost);
+                paramUser->set_hostport(clientItem->mPort);
+                paramUser->set_nick(clientItem->mNick);
+                paramUser->set_servkey(clientItem->mServKey);
+                
+                ::google::protobuf::RepeatedPtrField< ::TCPUser > userList = cmdContent->userlist();
+                // TODO:发消息
+                userList.AddAllocated(paramUser);
+                
+                msg->set_allocated_cmdcontent(cmdContent);
+                
+                std::string str = msg->SerializeAsString();
+                // 发送数据
+                ssize_t len = send(it->second->mSocketID, (const void *)str.c_str(),  msg->ByteSize(), 0);
+                std::ostringstream stream;
+                if (len > 0)
+                {
+                    stream << "向" << it->second->getKey() << "转发" << clientItem->getKey() <<"上线消息成功" << std::endl;
+                }
+                else
+                {
+                    stream << "向" << it->second->getKey() << "转发" << clientItem->getKey() <<"上线消息失败" << std::endl;
+                }
+                
+                onTipInfo(stream.str());
+            }
+        }
+        delete msg;
+        msg = NULL;
+    }
+    
+}
+
+void TCPServer::onNotifyNickName(std::shared_ptr<TCPConnectItem>clientItem)
+{
+    // 通知已连接上的用户，item登录上了
+    if (clientItem && isVaildItem(clientItem))
+    {
+        TCPMsg *msg = new TCPMsg();
+        
+        TCPUser *fromUser = new TCPUser();
+        fromUser->set_hostip(mHostItem->mHost);
+        fromUser->set_hostport(mHostItem->mPort);
+        fromUser->set_nick(mHostItem->mNick);
+        
+        msg->set_allocated_fromuser(fromUser);
+        msg->set_msgtype(TCPMsg_TCPMsgType_EMsg_Cmd);
+        
+        TCPCmdContent *cmdContent = new TCPCmdContent;
+        TCPUser *toUser = new TCPUser();
+        toUser->set_hostip(clientItem->mHost);
+        toUser->set_hostport(clientItem->mPort);
+        toUser->set_nick(clientItem->mNick);
+        cmdContent->set_allocated_touser(toUser);
+        
+        cmdContent->set_cmdtype(TCPCmdContent_TCPMsgType_ECmd_Nick);
+        
+        cmdContent->set_cmdparam(clientItem->mNick);
+        
+        msg->set_allocated_cmdcontent(cmdContent);
+        
+        std::string str = msg->SerializeAsString();
+        // 发送数据
+        ssize_t len = send(clientItem->mSocketID, (const void *)str.c_str(),  msg->ByteSize(), 0);
+        std::ostringstream stream;
+        if (len > 0)
+        {
+            stream << "给" << clientItem->getKey() <<"起Nick名：" << clientItem->mNick << "成功" << std::endl;
+        }
+        else
+        {
+            stream << "给" << clientItem->getKey() <<"起Nick名：" << clientItem->mNick << "失败" << std::endl;
+        }
+        
+        onTipInfo(stream.str());
+        
+        delete msg;
+        msg = NULL;
+    }
+}
+
+
+void TCPServer::onNotifySync(std::shared_ptr<TCPConnectItem>clientItem)
+{
+    // 通知已连接上的用户，item登录上了
+    if (clientItem && mConnMap.size() > 1)
+    {
+        TCPMsg *msg = new TCPMsg();
+        
+        TCPUser *fromUser = new TCPUser();
+        fromUser->set_hostip(mHostItem->mHost);
+        fromUser->set_hostport(mHostItem->mPort);
+        fromUser->set_nick(mHostItem->mNick);
+        fromUser->set_servkey(mHostItem->mServKey);
+        
+        msg->set_allocated_fromuser(fromUser);
+        msg->set_msgtype(TCPMsg_TCPMsgType_EMsg_Cmd);
+        
+        
+        TCPCmdContent *cmdContent = new TCPCmdContent;
+        TCPUser *toUser = new TCPUser();
+        toUser->set_hostip(clientItem->mHost);
+        toUser->set_hostport(clientItem->mPort);
+        toUser->set_nick(clientItem->mNick);
+        toUser->set_servkey(clientItem->mServKey);
+        cmdContent->set_allocated_touser(toUser);
+        
+        cmdContent->set_cmdtype(TCPCmdContent_TCPMsgType_ECmd_Sync);
+        
+        ::google::protobuf::RepeatedPtrField< ::TCPUser > userList = cmdContent->userlist();
+        
+        const std::string key = clientItem->getKey();
+        std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it;
+        for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+        {
+            if (it->first != key)
+            {
+                TCPUser *paramUser = new TCPUser();
+                paramUser->set_hostip(it->second->mHost);
+                paramUser->set_hostport(it->second->mPort);
+                paramUser->set_nick(it->second->mNick);
+                paramUser->set_servkey(it->second->mServKey);
+                
+                // TODO:发消息
+                userList.AddAllocated(paramUser);
+            }
+        }
+        
+        
+        msg->set_allocated_cmdcontent(cmdContent);
+        
+        std::string str = msg->SerializeAsString();
+        // 发送数据
+        ssize_t len = send(clientItem->mSocketID, (const void *)str.c_str(),  msg->ByteSize(), 0);
+        std::ostringstream stream;
+        if (len > 0)
+        {
+            stream << "向" << clientItem->getKey() << "同步用户列表成功" << std::endl;
+        }
+        else
+        {
+            stream << "向" << clientItem->getKey() << "同步用户列表失败" << std::endl;
+        }
+        
+        onTipInfo(stream.str());
+        
+        
+        delete msg;
+        msg = NULL;
+    }
+}
+
+void TCPServer::onNotifyExit(std::shared_ptr<TCPConnectItem>clientItem)
+{
+    
+}
+
+void TCPServer::onNotifyServerSwitchExit(std::shared_ptr<TCPConnectItem> clientItem)
+{
+    const std::string hostKey = mHostItem->mServKey;
+    const std::string discswkey = clientItem->mServKey;
+    if (clientItem && clientItem->mServKey == mHostItem->getKey())
+    {
+        mConnMap.erase(clientItem->getKey());
+        // 说明是转发机断开了
+        // 找到其他转发机
+        
+        // 找出所有断开的机子
+        
+        
+        std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it;
+        
+        for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+        {
+            if (it->second->mServKey == clientItem->getKey())
+            {
+                it = mConnMap.erase(it);
+                std::cout << it->second->getKey() << "下线" << std::endl;
+            }
+        }
+        
+        
+        
+        for (it = mConnMap.begin(); it != mConnMap.end(); it++)
+        {
+            // 向其他接口机同步列表
+            if (it->second->mServKey == mHostItem->getKey())
+            {
+                onNotifySync(it->second);
+            }
+        }
+    }
 }
 

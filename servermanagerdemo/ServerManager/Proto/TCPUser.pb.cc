@@ -43,11 +43,12 @@ void protobuf_AssignDesc_TCPUser_2eproto() {
       "TCPUser.proto");
   GOOGLE_CHECK(file != NULL);
   TCPUser_descriptor_ = file->message_type(0);
-  static const int TCPUser_offsets_[4] = {
+  static const int TCPUser_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TCPUser, hostip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TCPUser, hostport_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TCPUser, socketid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TCPUser, nick_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TCPUser, servkey_),
   };
   TCPUser_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -156,20 +157,21 @@ void protobuf_AddDesc_TCPUser_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rTCPUser.proto\"K\n\007TCPUser\022\016\n\006hostIP\030\001 \002"
+    "\n\rTCPUser.proto\"\\\n\007TCPUser\022\016\n\006hostIP\030\001 \002"
     "(\t\022\020\n\010hostPort\030\002 \002(\t\022\020\n\010socketid\030\003 \001(\005\022\014"
-    "\n\004nick\030\004 \001(\t\"\273\001\n\006TCPMsg\022\032\n\010fromUser\030\001 \002("
-    "\0132\010.TCPUser\022#\n\007msgtype\030\002 \002(\0162\022.TCPMsg.TC"
-    "PMsgType\022\"\n\nmsgContent\030\003 \001(\0132\016.TCPMsgCon"
-    "tent\022\"\n\ncmdContent\030\004 \001(\0132\016.TCPCmdContent"
-    "\"(\n\nTCPMsgType\022\014\n\010EMsg_Msg\020\001\022\014\n\010EMsg_Cmd"
-    "\020\002\"=\n\rTCPMsgContent\022\030\n\006toUser\030\001 \002(\0132\010.TC"
-    "PUser\022\022\n\nmsgContent\030\002 \002(\t\"\277\001\n\rTCPCmdCont"
-    "ent\022\030\n\006toUser\030\001 \002(\0132\010.TCPUser\022*\n\007cmdType"
-    "\030\002 \002(\0162\031.TCPCmdContent.TCPMsgType\022\020\n\010cmd"
-    "Param\030\003 \001(\t\022\032\n\010userList\030\004 \003(\0132\010.TCPUser\""
-    ":\n\nTCPMsgType\022\016\n\nECmd_Login\020\001\022\r\n\tECmd_Sy"
-    "nc\020\002\022\r\n\tECmd_Exit\020\003", 539);
+    "\n\004nick\030\004 \001(\t\022\017\n\007servKey\030\005 \001(\t\"\273\001\n\006TCPMsg"
+    "\022\032\n\010fromUser\030\001 \002(\0132\010.TCPUser\022#\n\007msgtype\030"
+    "\002 \002(\0162\022.TCPMsg.TCPMsgType\022\"\n\nmsgContent\030"
+    "\003 \001(\0132\016.TCPMsgContent\022\"\n\ncmdContent\030\004 \001("
+    "\0132\016.TCPCmdContent\"(\n\nTCPMsgType\022\014\n\010EMsg_"
+    "Msg\020\001\022\014\n\010EMsg_Cmd\020\002\"=\n\rTCPMsgContent\022\030\n\006"
+    "toUser\030\001 \002(\0132\010.TCPUser\022\022\n\nmsgContent\030\002 \002"
+    "(\t\"\316\001\n\rTCPCmdContent\022\030\n\006toUser\030\001 \002(\0132\010.T"
+    "CPUser\022*\n\007cmdType\030\002 \002(\0162\031.TCPCmdContent."
+    "TCPMsgType\022\020\n\010cmdParam\030\003 \001(\t\022\032\n\010userList"
+    "\030\004 \003(\0132\010.TCPUser\"I\n\nTCPMsgType\022\016\n\nECmd_L"
+    "ogin\020\001\022\r\n\tECmd_Sync\020\002\022\r\n\tECmd_Exit\020\003\022\r\n\t"
+    "ECmd_Nick\020\004", 571);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "TCPUser.proto", &protobuf_RegisterTypes);
   TCPUser::default_instance_ = new TCPUser();
@@ -197,6 +199,7 @@ const int TCPUser::kHostIPFieldNumber;
 const int TCPUser::kHostPortFieldNumber;
 const int TCPUser::kSocketidFieldNumber;
 const int TCPUser::kNickFieldNumber;
+const int TCPUser::kServKeyFieldNumber;
 #endif  // !_MSC_VER
 
 TCPUser::TCPUser()
@@ -222,6 +225,7 @@ void TCPUser::SharedCtor() {
   hostport_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   socketid_ = 0;
   nick_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  servkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -239,6 +243,9 @@ void TCPUser::SharedDtor() {
   }
   if (nick_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete nick_;
+  }
+  if (servkey_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete servkey_;
   }
   if (this != default_instance_) {
   }
@@ -266,7 +273,7 @@ TCPUser* TCPUser::New() const {
 }
 
 void TCPUser::Clear() {
-  if (_has_bits_[0 / 32] & 15) {
+  if (_has_bits_[0 / 32] & 31) {
     if (has_hostip()) {
       if (hostip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         hostip_->clear();
@@ -281,6 +288,11 @@ void TCPUser::Clear() {
     if (has_nick()) {
       if (nick_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         nick_->clear();
+      }
+    }
+    if (has_servkey()) {
+      if (servkey_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        servkey_->clear();
       }
     }
   }
@@ -359,6 +371,23 @@ bool TCPUser::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(42)) goto parse_servKey;
+        break;
+      }
+
+      // optional string servKey = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_servKey:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_servkey()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->servkey().data(), this->servkey().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "servkey");
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -423,6 +452,16 @@ void TCPUser::SerializeWithCachedSizes(
       4, this->nick(), output);
   }
 
+  // optional string servKey = 5;
+  if (has_servkey()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->servkey().data(), this->servkey().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "servkey");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->servkey(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -471,6 +510,17 @@ void TCPUser::SerializeWithCachedSizes(
         4, this->nick(), target);
   }
 
+  // optional string servKey = 5;
+  if (has_servkey()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->servkey().data(), this->servkey().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "servkey");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->servkey(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -509,6 +559,13 @@ int TCPUser::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->nick());
+    }
+
+    // optional string servKey = 5;
+    if (has_servkey()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->servkey());
     }
 
   }
@@ -550,6 +607,9 @@ void TCPUser::MergeFrom(const TCPUser& from) {
     if (from.has_nick()) {
       set_nick(from.nick());
     }
+    if (from.has_servkey()) {
+      set_servkey(from.servkey());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -578,6 +638,7 @@ void TCPUser::Swap(TCPUser* other) {
     std::swap(hostport_, other->hostport_);
     std::swap(socketid_, other->socketid_);
     std::swap(nick_, other->nick_);
+    std::swap(servkey_, other->servkey_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1290,6 +1351,7 @@ bool TCPCmdContent_TCPMsgType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -1300,6 +1362,7 @@ bool TCPCmdContent_TCPMsgType_IsValid(int value) {
 const TCPCmdContent_TCPMsgType TCPCmdContent::ECmd_Login;
 const TCPCmdContent_TCPMsgType TCPCmdContent::ECmd_Sync;
 const TCPCmdContent_TCPMsgType TCPCmdContent::ECmd_Exit;
+const TCPCmdContent_TCPMsgType TCPCmdContent::ECmd_Nick;
 const TCPCmdContent_TCPMsgType TCPCmdContent::TCPMsgType_MIN;
 const TCPCmdContent_TCPMsgType TCPCmdContent::TCPMsgType_MAX;
 const int TCPCmdContent::TCPMsgType_ARRAYSIZE;

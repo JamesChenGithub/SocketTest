@@ -16,7 +16,7 @@ class TCPServerSwitch : public TCPServer
 {
     
 protected:
-    std::unique_ptr<TCPConnectItem>  mServerMgrItem;
+    std::shared_ptr<TCPConnectItem>  mServerMgrItem;
     std::thread mRecvThread;
     
 public:

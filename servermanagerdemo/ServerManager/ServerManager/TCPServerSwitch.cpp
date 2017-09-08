@@ -7,7 +7,7 @@
 //
 
 #include "TCPServerSwitch.hpp"
-
+#include "TCPUser.pb.h"
 #import <sys/socket.h>
 #import <netinet/in.h>
 #import <arpa/inet.h>
@@ -27,7 +27,7 @@ TCPServerSwitch::TCPServerSwitch()
     std::cout << "TCPServerSwitch() constructor" << std::endl;
 }
 
-TCPServerSwitch::TCPServerSwitch(std::shared_ptr<TCPConnectItem> item):TCPServer(item)
+TCPServerSwitch::TCPServerSwitch(std::shared_ptr<TCPConnectItem>  item):TCPServer(item)
 {
     
 }
@@ -38,7 +38,7 @@ bool TCPServerSwitch::start()
     
     // todo 连接serverManager
     
-    std::shared_ptr<TCPConnectItem> itemptr(new TCPConnectItem());
+    std::shared_ptr<TCPConnectItem>  itemptr(new TCPConnectItem());
     itemptr->mHost = std::string("127.0.0.1");
     itemptr->mPort = std::string("6666");
     this->connectServer(itemptr);
@@ -46,17 +46,16 @@ bool TCPServerSwitch::start()
 
 }
 
-bool TCPServerSwitch::connectServer(std::shared_ptr<TCPConnectItem> item)
+bool TCPServerSwitch::connectServer(std::shared_ptr<TCPConnectItem>  item)
 {
-    std::unique_ptr<TCPConnectItem> ptr(new TCPConnectItem(*item));
-    mServerMgrItem = std::move(ptr);
-    
-    if (!isVaildItem(mServerMgrItem.get()))
+    if (!isVaildItem(item))
     {
         onListenError(-1, "ip地址或端口有误");
         return false;
     }
     
+    std::unique_ptr<TCPConnectItem> ptr(new TCPConnectItem(*item));
+    mServerMgrItem = std::move(ptr);
     
     int socketID = socket(AF_INET, SOCK_STREAM, 0);
     if (socketID < 0)
@@ -86,7 +85,7 @@ bool TCPServerSwitch::connectServer(std::shared_ptr<TCPConnectItem> item)
     onTipInfo("connect Socket成功");
     
     mRecvThread = std::thread([this]{
-        onTipInfo("开始接收链接");
+        onTipInfo("开始接收ServerManger数据");
         this->onRecvMsgFromServer();
     });
     mRecvThread.detach();
@@ -106,19 +105,90 @@ void TCPServerSwitch::onRecvMsgFromServer()
         
         if (size <= 0)
         {
-            
             break;
         }
         else
         {
             printf("recv from server : %s\n", buf);
             
-            onRecvMsg(mServerMgrItem.get(), std::string(buf));
+            TCPMsg *msg = new TCPMsg();
+            bool succ = msg->ParseFromArray(buf, (int)size);
+            if (succ)
+            {
+                if (msg->has_msgtype())
+                {
+                    TCPMsg_TCPMsgType type = msg->msgtype();
+                    if (type == TCPMsg_TCPMsgType_EMsg_Msg)
+                    {
+                        // get FromUser
+                        TCPUser *fromuser = msg->mutable_fromuser();
+                        
+                        
+                        std::shared_ptr<TCPConnectItem>  item(new TCPConnectItem());
+                        item->mHost = fromuser->hostip();
+                        item->mPort = fromuser->hostport();
+                        item->mNick = fromuser->nick();
+                        
+                        TCPMsgContent *msgContent = msg->mutable_msgcontent();
+                        
+//                        TCPUser *toUSer = msgContent->mutable_touser();
+                        
+                        std::string msgInfo = msgContent->msgcontent();
+                        
+//                        onRecvMsg(mServerMgrItem, std::string(msgInfo));
+                        
+                    }
+                    else if (type == TCPMsg_TCPMsgType_EMsg_Cmd)
+                    {
+                        // get FromUser
+//                        TCPUser *fromuser = msg->mutable_fromuser();
+                        TCPCmdContent *cmd = msg->mutable_cmdcontent();
+                        TCPCmdContent_TCPMsgType cmdType = cmd->cmdtype();
+                        switch (cmdType)
+                        {
+                            case TCPCmdContent_TCPMsgType_ECmd_Login:
+                            {
+                                // 收到转上线用户通知,加到用户列表
+//                                TCPUser *toUSer = cmd->mutable_touser();
+                                
+//                                ::google::protobuf::RepeatedPtrField< ::TCPUser > *userList = cmd->mutable_userlist();
+                                
+                                break;
+                            }
+                            case TCPCmdContent_TCPMsgType_ECmd_Sync:
+                            {
+                                // 节点回复上线用户列表，添加到自身列表中
+//                                TCPUser *toUSer = cmd->mutable_touser();
+                                
+//                                ::google::protobuf::RepeatedPtrField< ::TCPUser > *userList = cmd->mutable_userlist();
+                                break;
+                            }
+                            case TCPCmdContent_TCPMsgType_ECmd_Exit:
+                            {
+                                // 收到转上线用户通知,移除用户列表
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                        
+                        
+
+                    }
+                }
+            }
+            
+            delete msg;
+            msg = NULL;
+            
+            
         }
     }
     
-    onExitConnect(mServerMgrItem.get());
+
+    std::shared_ptr<TCPConnectItem>  nit(new TCPConnectItem(*mServerMgrItem));
     close(mServerMgrItem->mSocketID);
+    onExitConnect(nit);
 }
 
 

@@ -26,6 +26,9 @@ class TCPServerMonitor;
 @property (weak) IBOutlet NSTableView *tableView;
 
 @property (weak) IBOutlet NSComboBox *typeBox;
+
+@property (weak) IBOutlet NSTextField *msgText;
+@property (weak) IBOutlet NSButton *sendMsg;
 @end
 
 
@@ -54,10 +57,12 @@ public:
     
     virtual void onConnectError(int err, std::string errinfo);
     
-    virtual void onRecvMsgFrom(TCPConnectItem *item, std::string msg);
+    virtual void onRecvMsgFrom(std::shared_ptr<TCPConnectItem> item, std::string msg);
     
-    virtual void onAcceptConnect(TCPConnectItem *item);
+    virtual void onAcceptConnect(std::shared_ptr<TCPConnectItem> item);
     
-    virtual void onExitConnect(TCPConnectItem *item);
+    virtual void onAcceptConnectList(std::list<std::shared_ptr<TCPConnectItem> > itemList);
+    
+    virtual void onExitConnect(std::shared_ptr<TCPConnectItem> item);
 };
 

@@ -859,7 +859,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mae-uc-uHj">
-                                <rect key="frame" x="450" y="15" width="92" height="31"/>
+                                <rect key="frame" x="450" y="14" width="92" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="1vt-rX-vG4"/>
                                     <constraint firstAttribute="height" constant="20" id="Y1G-HV-sGF"/>
@@ -868,6 +868,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="onSendMsg:" target="XfG-lQ-9wD" id="aAZ-zS-xQ3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -903,6 +906,8 @@
                     <connections>
                         <outlet property="ipAddr" destination="xls-JO-pOa" id="AEJ-kd-LbB"/>
                         <outlet property="ipPort" destination="NLX-hh-r5N" id="4U9-lY-4k2"/>
+                        <outlet property="msgText" destination="UgL-Ks-J6u" id="TXa-cp-7eN"/>
+                        <outlet property="sendMsg" destination="mae-uc-uHj" id="hRx-vc-lSb"/>
                         <outlet property="tableView" destination="9ff-hc-zzW" id="932-aa-i1G"/>
                         <outlet property="textView" destination="tmm-be-xW2" id="j6h-zE-4Xl"/>
                         <outlet property="typeBox" destination="Hi0-wn-1DU" id="gT3-VO-hc0"/>

@@ -24,25 +24,54 @@ public:
     std::string mHost;
     std::string mPort;
     std::string mNick;
+    std::string mServKey;    // 所连服务器的标识
     
 public:
+    ~TCPConnectItem()
+    {
+        std::cout << mHost << ":" << mPort << "release" << std::endl;
+    }
     
     TCPConnectItem()
     {
         
     }
     
-    TCPConnectItem(const TCPConnectItem &item) : TCPConnectItem()
+    TCPConnectItem(std::shared_ptr<TCPConnectItem> item)
     {
-        mSocketID = item.mSocketID;
-        mHost =  std::string(item.mHost);
-        mPort =  std::string(item.mPort);
-        mNick =  std::string(item.mNick);
+        if (item)
+        {
+            
+        }
     }
     
-    ~TCPConnectItem()
+//    TCPConnectItem(const TCPConnectItem &item) : TCPConnectItem()
+//    {
+//        mSocketID = item.mSocketID;
+//        mHost =  std::string(item.mHost);
+//        mPort =  std::string(item.mPort);
+//        mNick =  std::string(item.mNick);
+//        mIsDirectConnect = true;
+//    }
+//    
+//    TCPConnectItem(const TCPConnectItem *item) : TCPConnectItem()
+//    {
+//        if(item)
+//        {
+//            
+//            mSocketID = item->mSocketID;
+//            mHost =  std::string(item->mHost);
+//            mPort =  std::string(item->mPort);
+//            mNick =  std::string(item->mNick);
+//            mIsDirectConnect = true;
+//        }
+//    }
+    
+    
+    
+    const std::string getKey() const
     {
-        std::cout << mHost << ":" << mPort << "release" << std::endl;
+        return std::string(mHost + ":" + mPort);
     }
 };
 
@@ -58,12 +87,12 @@ public:
     
     virtual void onConnectError(int err, std::string errinfo) = 0;
     
-    virtual void onAcceptConnect(TCPConnectItem *item) = 0;
+    virtual void onAcceptConnect(std::shared_ptr<TCPConnectItem> item) = 0;
+    virtual void onAcceptConnectList(std::list<std::shared_ptr<TCPConnectItem> > itemList) = 0;
+    virtual void onExitConnect(std::shared_ptr<TCPConnectItem> item) = 0;
     
-    virtual void onExitConnect(TCPConnectItem *item) = 0;
     
-    
-    virtual void onRecvMsgFrom(TCPConnectItem *item, std::string msg) = 0;
+    virtual void onRecvMsgFrom(std::shared_ptr<TCPConnectItem> item, std::string msg) = 0;
     
 };
 

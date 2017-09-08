@@ -24,7 +24,7 @@
 {
     if (_tcpServer)
     {
-        std::map<std::string, std::shared_ptr<TCPConnectItem>> map = _tcpServer->getConnectMap();
+        std::map<std::string, std::shared_ptr<TCPConnectItem> > map = _tcpServer->getConnectMap();
         return map.size();
     }
     return 0;
@@ -64,9 +64,9 @@
 
 - (NSString *)getIPPortAtRow:(NSInteger)row
 {
-    std::map<std::string, std::shared_ptr<TCPConnectItem>> map = _tcpServer->getConnectMap();
+    std::map<std::string, std::shared_ptr<TCPConnectItem> > map = _tcpServer->getConnectMap();
     
-    std::map<std::string, std::shared_ptr<TCPConnectItem>>::iterator it = map.begin();
+    std::map<std::string, std::shared_ptr<TCPConnectItem> >::iterator it = map.begin();
     int c = 0;
     for (; it != map.end(); it++)
     {
@@ -129,6 +129,8 @@
     _typeIndex = 0;
     [_typeBox selectItemAtIndex:_typeIndex];
     
+    _msgText.enabled = NO;
+    _sendMsg.enabled = NO;
 }
 
 - (IBAction)onStartServer:(NSButton *)sender
@@ -177,12 +179,15 @@
     bool succ = false;
     if (_typeIndex != 2)
     {
-    
         succ = _tcpServer->start();
+        _msgText.enabled = !succ;
+        _sendMsg.enabled = !succ;
     }
     else
     {
         succ = _tcpServer->connectServer(itemptr);
+        _msgText.enabled = succ;
+        _sendMsg.enabled = succ;
     }
     
     
@@ -234,6 +239,11 @@
     }
 }
 
+- (IBAction)onSendMsg:(NSButton *)sender
+{
+    
+}
+
 - (void)onTipInfo:(std::string)string
 {
     NSString *s = [NSString stringWithUTF8String:string.c_str()];
@@ -255,7 +265,7 @@
     [self appendTextMsg:s];
 }
 
-- (void)onRecvMsgFrom:(TCPConnectItem *)item message:(std::string)msg
+- (void)onRecvMsgFrom:(std::shared_ptr<TCPConnectItem> )item message:(std::string)msg
 {
     if (item)
     {
@@ -267,14 +277,23 @@
     
 }
 
-- (void)onAcceptConnect:(TCPConnectItem *)item
+- (void)onAcceptConnect:(std::shared_ptr<TCPConnectItem> )item
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_tableView reloadData];
     });
 }
 
-- (void)onExitConnect:(TCPConnectItem *)item
+- (void)onAcceptConnectList:(std::list<std::shared_ptr<TCPConnectItem> >)itemList
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+    });
+}
+
+
+
+- (void)onExitConnect:(std::shared_ptr<TCPConnectItem> )item
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_tableView reloadData];
@@ -323,7 +342,7 @@ void TCPServerMonitor::onConnectError(int err, std::string errinfo)
         [mWeakObserverRef onConnectError:err errorInfo:errinfo];
     }
 }
-void TCPServerMonitor::onRecvMsgFrom(TCPConnectItem *item, std::string msg)
+void TCPServerMonitor::onRecvMsgFrom(std::shared_ptr<TCPConnectItem> item, std::string msg)
 {
     if (mWeakObserverRef)
     {
@@ -331,7 +350,7 @@ void TCPServerMonitor::onRecvMsgFrom(TCPConnectItem *item, std::string msg)
     }
 }
 
-void TCPServerMonitor::onAcceptConnect(TCPConnectItem *item)
+void TCPServerMonitor::onAcceptConnect(std::shared_ptr<TCPConnectItem> item)
 {
     if (mWeakObserverRef)
     {
@@ -339,10 +358,18 @@ void TCPServerMonitor::onAcceptConnect(TCPConnectItem *item)
     }
 }
 
-void TCPServerMonitor::onExitConnect(TCPConnectItem *item)
+void TCPServerMonitor::onExitConnect(std::shared_ptr<TCPConnectItem> item)
 {
     if (mWeakObserverRef)
     {
         [mWeakObserverRef onExitConnect:item];
+    }
+}
+
+void TCPServerMonitor::onAcceptConnectList(std::list<std::shared_ptr<TCPConnectItem> > itemList)
+{
+    if (mWeakObserverRef)
+    {
+        [mWeakObserverRef onAcceptConnectList:itemList];
     }
 }

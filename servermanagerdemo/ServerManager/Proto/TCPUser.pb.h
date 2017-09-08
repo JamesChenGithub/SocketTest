@@ -59,11 +59,12 @@ inline bool TCPMsg_TCPMsgType_Parse(
 enum TCPCmdContent_TCPMsgType {
   TCPCmdContent_TCPMsgType_ECmd_Login = 1,
   TCPCmdContent_TCPMsgType_ECmd_Sync = 2,
-  TCPCmdContent_TCPMsgType_ECmd_Exit = 3
+  TCPCmdContent_TCPMsgType_ECmd_Exit = 3,
+  TCPCmdContent_TCPMsgType_ECmd_Nick = 4
 };
 bool TCPCmdContent_TCPMsgType_IsValid(int value);
 const TCPCmdContent_TCPMsgType TCPCmdContent_TCPMsgType_TCPMsgType_MIN = TCPCmdContent_TCPMsgType_ECmd_Login;
-const TCPCmdContent_TCPMsgType TCPCmdContent_TCPMsgType_TCPMsgType_MAX = TCPCmdContent_TCPMsgType_ECmd_Exit;
+const TCPCmdContent_TCPMsgType TCPCmdContent_TCPMsgType_TCPMsgType_MAX = TCPCmdContent_TCPMsgType_ECmd_Nick;
 const int TCPCmdContent_TCPMsgType_TCPMsgType_ARRAYSIZE = TCPCmdContent_TCPMsgType_TCPMsgType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* TCPCmdContent_TCPMsgType_descriptor();
@@ -174,6 +175,18 @@ class TCPUser : public ::google::protobuf::Message {
   inline ::std::string* release_nick();
   inline void set_allocated_nick(::std::string* nick);
 
+  // optional string servKey = 5;
+  inline bool has_servkey() const;
+  inline void clear_servkey();
+  static const int kServKeyFieldNumber = 5;
+  inline const ::std::string& servkey() const;
+  inline void set_servkey(const ::std::string& value);
+  inline void set_servkey(const char* value);
+  inline void set_servkey(const char* value, size_t size);
+  inline ::std::string* mutable_servkey();
+  inline ::std::string* release_servkey();
+  inline void set_allocated_servkey(::std::string* servkey);
+
   // @@protoc_insertion_point(class_scope:TCPUser)
  private:
   inline void set_has_hostip();
@@ -184,6 +197,8 @@ class TCPUser : public ::google::protobuf::Message {
   inline void clear_has_socketid();
   inline void set_has_nick();
   inline void clear_has_nick();
+  inline void set_has_servkey();
+  inline void clear_has_servkey();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -192,6 +207,7 @@ class TCPUser : public ::google::protobuf::Message {
   ::std::string* hostip_;
   ::std::string* hostport_;
   ::std::string* nick_;
+  ::std::string* servkey_;
   ::google::protobuf::int32 socketid_;
   friend void  protobuf_AddDesc_TCPUser_2eproto();
   friend void protobuf_AssignDesc_TCPUser_2eproto();
@@ -492,6 +508,7 @@ class TCPCmdContent : public ::google::protobuf::Message {
   static const TCPMsgType ECmd_Login = TCPCmdContent_TCPMsgType_ECmd_Login;
   static const TCPMsgType ECmd_Sync = TCPCmdContent_TCPMsgType_ECmd_Sync;
   static const TCPMsgType ECmd_Exit = TCPCmdContent_TCPMsgType_ECmd_Exit;
+  static const TCPMsgType ECmd_Nick = TCPCmdContent_TCPMsgType_ECmd_Nick;
   static inline bool TCPMsgType_IsValid(int value) {
     return TCPCmdContent_TCPMsgType_IsValid(value);
   }
@@ -836,6 +853,82 @@ inline void TCPUser::set_allocated_nick(::std::string* nick) {
     nick_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:TCPUser.nick)
+}
+
+// optional string servKey = 5;
+inline bool TCPUser::has_servkey() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void TCPUser::set_has_servkey() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void TCPUser::clear_has_servkey() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void TCPUser::clear_servkey() {
+  if (servkey_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    servkey_->clear();
+  }
+  clear_has_servkey();
+}
+inline const ::std::string& TCPUser::servkey() const {
+  // @@protoc_insertion_point(field_get:TCPUser.servKey)
+  return *servkey_;
+}
+inline void TCPUser::set_servkey(const ::std::string& value) {
+  set_has_servkey();
+  if (servkey_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    servkey_ = new ::std::string;
+  }
+  servkey_->assign(value);
+  // @@protoc_insertion_point(field_set:TCPUser.servKey)
+}
+inline void TCPUser::set_servkey(const char* value) {
+  set_has_servkey();
+  if (servkey_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    servkey_ = new ::std::string;
+  }
+  servkey_->assign(value);
+  // @@protoc_insertion_point(field_set_char:TCPUser.servKey)
+}
+inline void TCPUser::set_servkey(const char* value, size_t size) {
+  set_has_servkey();
+  if (servkey_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    servkey_ = new ::std::string;
+  }
+  servkey_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:TCPUser.servKey)
+}
+inline ::std::string* TCPUser::mutable_servkey() {
+  set_has_servkey();
+  if (servkey_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    servkey_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:TCPUser.servKey)
+  return servkey_;
+}
+inline ::std::string* TCPUser::release_servkey() {
+  clear_has_servkey();
+  if (servkey_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = servkey_;
+    servkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void TCPUser::set_allocated_servkey(::std::string* servkey) {
+  if (servkey_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete servkey_;
+  }
+  if (servkey) {
+    set_has_servkey();
+    servkey_ = servkey;
+  } else {
+    clear_has_servkey();
+    servkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:TCPUser.servKey)
 }
 
 // -------------------------------------------------------------------
